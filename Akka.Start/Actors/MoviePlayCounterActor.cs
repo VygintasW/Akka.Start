@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Start.Exceptions;
 using Akka.Start.Messages;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,17 @@ namespace Akka.Start.Actors
             else
             {
                 MoviePlayCounts.Add(message.MovieTitle, 1);
+            }
+
+            //Simulated bugs
+            if(MoviePlayCounts[message.MovieTitle] > 3)
+            {
+                throw new SimulatedCorruptStateException();
+            }
+
+            if(message.MovieTitle == "Partial Recoil")
+            {
+                throw new SimulatedTerribleMovieException();
             }
 
             Console.WriteLine($"MoviePlayCounterActor '{message.MovieTitle}' has been watched {MoviePlayCounts[message.MovieTitle]} times");
