@@ -1,7 +1,10 @@
 ﻿using Akka.Actor;
+using Akka.Configuration;
 using Akka.Start.Common.Actors;
 using Akka.Start.Common.Messages;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,8 +16,18 @@ namespace Akka.Start
 
         static async Task Main(string[] args)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddXmlFile("hocon.xml");
+
+            var configuration = builder.Build();
+
+            var hoconConfig = configuration.GetSection("hocon");
+
+            var config = ConfigurationFactory.ParseString(hoconConfig.Value);
+
             Console.WriteLine("Creating MovieStreamingActorSystem");
-            MovieStreamingActorSystem = ActorSystem.Create(nameof(MovieStreamingActorSystem));
+            MovieStreamingActorSystem = ActorSystem.Create(nameof(MovieStreamingActorSystem), config);
 
             Console.WriteLine("Creating actor supervisory hierarchy");
             MovieStreamingActorSystem.ActorOf(Props.Create<PlaybackActor>(), "Playback");
