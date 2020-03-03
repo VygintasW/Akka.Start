@@ -1,8 +1,8 @@
 ﻿using Akka.Actor;
-using Akka.Start.Exceptions;
+using Akka.Start.Common.Exceptions;
 using System;
 
-namespace Akka.Start.Actors
+namespace Akka.Start.Common.Actors
 {
     internal class PlaybackStatisticsActor : ReceiveActor
     {

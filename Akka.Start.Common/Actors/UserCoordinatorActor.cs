@@ -1,9 +1,9 @@
 ﻿using Akka.Actor;
-using Akka.Start.Messages;
+using Akka.Start.Common.Messages;
 using System;
 using System.Collections.Generic;
 
-namespace Akka.Start.Actors
+namespace Akka.Start.Common.Actors
 {
     internal class UserCoordinatorActor : ReceiveActor
     {

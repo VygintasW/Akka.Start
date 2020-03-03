@@ -1,7 +1,6 @@
 ﻿using Akka.Actor;
-using Akka.Actor.Internal;
-using Akka.Start.Actors;
-using Akka.Start.Messages;
+using Akka.Start.Common.Actors;
+using Akka.Start.Common.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace Akka.Start
 {
     class Program
     {
-        private static ActorSystem MovieStreamingActorSystem;
+        private static ActorSystem MovieStreamingActorSystem { get; set; }
 
         static async Task Main(string[] args)
         {
@@ -67,9 +66,9 @@ namespace Akka.Start
 
                 if(commandArgs[0] == "exit")
                 {
-                    await CoordinatedShutdown.Get(MovieStreamingActorSystem)
-                         .Run(CoordinatedShutdown.ClrExitReason.Instance);
-                    
+                    await MovieStreamingActorSystem.Terminate();
+                    await MovieStreamingActorSystem.WhenTerminated;
+
                     Console.WriteLine("Actor system shutdown");
                     Console.ReadKey();
                     break;

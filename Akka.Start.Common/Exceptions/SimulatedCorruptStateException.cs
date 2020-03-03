@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Akka.Start.Exceptions
+namespace Akka.Start.Common.Exceptions
 {
     public class SimulatedCorruptStateException : Exception
     {

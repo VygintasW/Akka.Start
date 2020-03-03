@@ -1,8 +1,7 @@
 ﻿using Akka.Actor;
-using Akka.Start.Messages;
 using System;
 
-namespace Akka.Start.Actors
+namespace Akka.Start.Common.Actors
 {
     public class PlaybackActor : ReceiveActor
     {
